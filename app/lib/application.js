@@ -14,4 +14,7 @@ Application.prototype.stop = function() {
     this.server.close();
 };
 
-module.exports = Application;
+var application = new Application();
+application.start();
+
+module.exports = application;

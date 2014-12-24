@@ -1,7 +1,25 @@
+var fs = require('fs');
+var cheerio = require('cheerio');
+
 describe('index.html', function() {
    
+    var file = './app/lib/index.html';
+   
     it('exists', function() {
-        expect(require('fs').existsSync('./app/lib/index.html')).toBe(true);
+        expect(fs.existsSync(file)).toBe(true);
     });
     
+    describe('content', function() {
+    
+        var page;
+    
+        beforeEach(function() {
+            var html = fs.readFileSync(file).toString();
+            page = cheerio.load(html);
+        });
+    
+        it('welcomes the visitor', function() {
+            expect(page.html()).toContain('Welcome');
+        });
+    });
 });

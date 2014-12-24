@@ -1,12 +1,10 @@
-var Application = require('./lib/application');
+var application = require('./lib/application');
 var request = require('request');
 
 describe('application', function() {
 
-    var application;
     
     beforeEach(function() {
-        application = new Application();
         application.start();
     });
     
