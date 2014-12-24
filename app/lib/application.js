@@ -7,7 +7,7 @@ function Application() {
 };
 
 Application.prototype.start = function() {
-    this.server.listen(5000);
+    this.server.listen(process.env.PORT || 5000);
 };
 
 Application.prototype.stop = function() {
