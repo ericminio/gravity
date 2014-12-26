@@ -34,11 +34,29 @@ describe('application', function() {
         });       
     });
     
-    it('serve the image of the plane with image/png header', function(done) {
+    it('serves the image of the plane with image/png header', function(done) {
         request({ url:'http://localhost:5000/lib/plane.png', encoding:'binary'}, function(error, response, body) {
             expect(response.headers['content-type']).toEqual('image/png');
             var plane = fs.readFileSync('./app/lib/plane.png', 'binary');
             expect(body).toEqual(plane);
+            done();
+        });       
+    });
+    
+    it('serves a script with application/javascript header', function(done) {
+        request('http://localhost:5000/lib/ground.js', function(error, response, body) {
+            expect(response.headers['content-type']).toEqual('application/javascript');
+            var script = fs.readFileSync('./app/lib/world.js').toString();
+            expect(body).toEqual(script);
+            done();
+        });       
+    });
+    
+    it('serves a css with text/css header', function(done) {
+        request('http://localhost:5000/lib/gravity.css', function(error, response, body) {
+            expect(response.headers['content-type']).toEqual('text/css');
+            var script = fs.readFileSync('./app/lib/world.css').toString();
+            expect(body).toEqual(script);
             done();
         });       
     });

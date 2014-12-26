@@ -9,8 +9,14 @@ var send = function(asset, response, contentType) {
 function Application() {
     this.server = require('http').createServer(function(request, response) { 
 
-        if (request.url.indexOf('plane.png') !== -1) {
+        if (request.url.indexOf('png') !== -1) {
             send('./app/lib/plane.png', response, 'image/png');
+        }
+        if (request.url.indexOf('css') !== -1) {
+            send('./app/lib/world.css', response, 'text/css');
+        }
+        if (request.url.indexOf('js') !== -1) {
+            send('./app/lib/world.js', response, 'application/javascript');
         }
         else {
             send('./app/lib/index.html', response, 'text/html');
