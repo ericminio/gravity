@@ -1,8 +1,20 @@
+var fs = require('fs');
+
+var send = function(asset, response, contentType) {
+    var content = fs.readFileSync(asset);
+    response.writeHead(200, { 'content-type': contentType }); 
+    response.end(content);
+};
+
 function Application() {
     this.server = require('http').createServer(function(request, response) { 
-        var index = require('fs').readFileSync('./app/lib/index.html').toString();
-        response.write(index);
-        response.end(); 
+
+        if (request.url.indexOf('plane.png') !== -1) {
+            send('./app/lib/plane.png', response, 'image/png');
+        }
+        else {
+            send('./app/lib/index.html', response, 'text/html');
+        }
     });
 };
 

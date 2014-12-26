@@ -1,5 +1,6 @@
 var application = require('./lib/application');
 var request = require('request');
+var fs = require('fs');
 
 describe('application', function() {
 
@@ -24,10 +25,20 @@ describe('application', function() {
         });       
     });
     
-    it('serves index.html', function(done) {
+    it('serves index.html with text/html header', function(done) {
         request('http://localhost:5000', function(error, response, body) {
-            var html = require('fs').readFileSync('./app/lib/index.html').toString();
+            expect(response.headers['content-type']).toEqual('text/html');
+            var html = fs.readFileSync('./app/lib/index.html').toString();
             expect(body).toEqual(html);
+            done();
+        });       
+    });
+    
+    it('serve the image of the plane with image/png header', function(done) {
+        request({ url:'http://localhost:5000/lib/plane.png', encoding:'binary'}, function(error, response, body) {
+            expect(response.headers['content-type']).toEqual('image/png');
+            var plane = fs.readFileSync('./app/lib/plane.png', 'binary');
+            expect(body).toEqual(plane);
             done();
         });       
     });

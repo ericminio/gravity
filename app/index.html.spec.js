@@ -18,8 +18,8 @@ describe('index.html', function() {
             page = cheerio.load(html);
         });
     
-        it('welcomes the visitor', function() {
-            expect(page.html()).toContain('Welcome');
+        it('contains the plane image', function() {
+            expect(page('#plane').attr('src')).toEqual('/lib/plane.png'); 
         });
     });
 });
