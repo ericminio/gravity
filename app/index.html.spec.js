@@ -21,5 +21,10 @@ describe('index.html', function() {
         it('contains the plane image', function() {
             expect(page('#plane').attr('src')).toEqual('/lib/plane.png'); 
         });
+        
+        it('contains the engine value placeholder', function() {
+            expect(page('#engine').length).toEqual(1);
+            expect(page('#engine').text()).toEqual('0');
+        });
     });
 });

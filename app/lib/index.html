@@ -7,12 +7,25 @@
     <link  href="/lib/world.css" rel="stylesheet" type="text/css">
     <script src="/lib/world.js"></script>
 <body>
+    <section>
+        <table>
+            <tr>
+                <td>Engine(t/f): </td>
+                <td id="engine">0</td>
+            </tr>
+        </table>
+    </section>
+    
     <img id="plane" src="/lib/plane.png"/>
     <section id="ground"></section>
     <script>
     window.onload = function() {
         displayGround(document);
         displayPlane(document);
+        plane.isRenderedIn(document);
+    };
+    window.onkeydown = function(event) {
+        pilot(event);
     };
     </script>
 </body>
