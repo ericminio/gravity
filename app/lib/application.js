@@ -10,7 +10,7 @@ function Application() {
     this.server = require('http').createServer(function(request, response) { 
 
         if (request.url.indexOf('png') !== -1) {
-            send('./app/lib/plane.png', response, 'image/png');
+            send('./app' + request.url, response, 'image/png');
         }
         if (request.url.indexOf('css') !== -1) {
             send('./app/lib/world.css', response, 'text/css');

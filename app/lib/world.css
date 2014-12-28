@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-#ground, #plane {
+#ground, #plane, #tree {
     position: absolute;
 }
 

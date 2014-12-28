@@ -2,11 +2,15 @@ ground = {
     z: 0
 };
 
+tree = {
+    x: 450
+};
+
 plane = {
     
     start: function() {
         this.engine = 0;
-        this.position = { z:0 };
+        this.position = { x:0, z:0 };
         this.speed = { vx:0, vz:0 };
         this.acceleration = { ax:0 };
     },
@@ -40,9 +44,11 @@ plane = {
     },
     updatePositionAfterDelay: function(delay) {
         this.position = {
-            z: delay * this.speed.vz / 1000 + this.position.z
+            z: delay * this.speed.vz / 1000 + this.position.z,
+            x: delay * this.speed.vx / 1000 + this.position.x,
         };
         if (this.position.z <0) { this.position.z = 0; }
+        if (this.position.x <0) { this.position.x = 0; }
     },
 };
 
@@ -77,12 +83,24 @@ update = function(document, plane) {
     updateEngineDrawing(document, plane);
     updateSpeedDrawing(document, plane);
     displayPlane(document, plane);
+    displayTree(document, plane);
 };
 
 displayGround = function(document) {
     var groundElement = document.getElementById('ground');
     
     groundElement.style.top = '500px';
+};
+
+displayTree = function(document, plane) {
+    if (document === undefined) { return; }
+    
+    var groundElement = document.getElementById('ground');
+    var treeElement = document.getElementById('tree');
+    var groundElementTop = groundElement.style.top.substring(0, groundElement.style.top.indexOf('px'));
+    
+    treeElement.style.top = groundElementTop - treeElement.height + 'px';
+    treeElement.style.left = 2*(tree.x - plane.position.x) + 'px';
 };
 
 displayPlane = function(document, plane) {

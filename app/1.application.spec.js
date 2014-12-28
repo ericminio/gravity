@@ -60,4 +60,13 @@ describe('application', function() {
             done();
         });       
     });
+
+    it('serves the image of the tree with image/png header', function(done) {
+        request({ url:'http://localhost:5000/lib/tree.png', encoding:'binary'}, function(error, response, body) {
+            expect(response.headers['content-type']).toEqual('image/png');
+            var tree = fs.readFileSync('./app/lib/tree.png', 'binary');
+            expect(body).toEqual(tree);
+            done();
+        });       
+    });    
 });
