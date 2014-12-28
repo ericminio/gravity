@@ -26,7 +26,7 @@ describe('Engine', function() {
     it('can be increased with key t', function() {
         pilot({ keyCode:84 });
         
-        expect(plane.engine).toEqual(1);
+        expect(plane.engine).toBeGreaterThan(0);
     });
     
     it('can be decreased with key f', function() {

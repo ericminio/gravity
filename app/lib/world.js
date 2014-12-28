@@ -12,12 +12,12 @@ plane = {
     },
     increaseThrottle: function() {
         if (this.engine < 2500) {
-            this.engine ++;
+            this.engine += 1;
         }
     },
     decreaseThrottle: function() {
         if (this.engine > 0) {
-            this.engine --;
+            this.engine -= 1;
         }
     },
     updateAfterDelay: function(delay) {
