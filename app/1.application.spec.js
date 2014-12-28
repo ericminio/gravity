@@ -44,7 +44,7 @@ describe('application', function() {
     });
     
     it('serves a script with application/javascript header', function(done) {
-        request('http://localhost:5000/lib/ground.js', function(error, response, body) {
+        request('http://localhost:5000/lib/world.js', function(error, response, body) {
             expect(response.headers['content-type']).toEqual('application/javascript');
             var script = fs.readFileSync('./app/lib/world.js').toString();
             expect(body).toEqual(script);
