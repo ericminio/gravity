@@ -21,9 +21,19 @@ plane = {
         }
     },
     updateAfterDelay: function(delay) {
-        plane.acceleration = { ax:this.engine };
-        plane.speed = { vx:delay * plane.acceleration.ax / 1000 + plane.speed.vx };
-    },    
+        this.updateAccelerationAfterDelay(delay);
+        this.updateSpeedAfterDelay(delay);
+    }, 
+    updateAccelerationAfterDelay: function(delay) {
+        this.acceleration = { ax:this.engine + resistance(this).rx };
+    },
+    updateSpeedAfterDelay: function(delay) {
+        this.speed = { vx:delay * this.acceleration.ax / 1000 + this.speed.vx };
+    },
+};
+
+resistance = function(plane) {
+    return { rx: - plane.speed.vx * plane.speed.vx / 10 };
 };
 
 pilot = function(event, document) {

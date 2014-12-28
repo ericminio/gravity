@@ -17,10 +17,10 @@ describe('Speed', function() {
         expect(plane.speed.vx).toEqual(10);
     });
     
-    it('increases with time when engine is steady', function() {
-        plane.engine = 10;
-        plane.updateAfterDelay(1000);
-        plane.updateAfterDelay(1000);
+    it('increases with time % to acceleration', function() {
+        plane.acceleration = { ax:10 };
+        plane.updateSpeedAfterDelay(1000);
+        plane.updateSpeedAfterDelay(1000);
         
         expect(plane.speed.vx).toEqual(20);
     });
