@@ -17,6 +17,6 @@ describe('Lift', function() {
         plane.engine = 0;
         plane.updateAccelerationAfterDelay(1000);
         
-        expect(plane.acceleration.az).toEqual(lift(plane).lz);
+        expect(plane.acceleration.az).toEqual(lift(plane).lz + weight(plane));
     });
 });

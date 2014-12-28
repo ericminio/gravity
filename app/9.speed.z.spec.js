@@ -18,4 +18,12 @@ describe('Speed Z', function() {
         
         expect(plane.speed.vz).toEqual(4);
     });
+    
+    it('can not be negative when the plane is on the ground', function() {
+        plane.position.z = 0;
+        plane.acceleration.az = -10;
+        plane.updateSpeedAfterDelay(1000);
+
+        expect(plane.speed.vz).toEqual(0);
+    });
 });

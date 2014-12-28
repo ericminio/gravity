@@ -28,7 +28,7 @@ plane = {
     updateAccelerationAfterDelay: function(delay) {
         this.acceleration = { 
             ax: traction(this).tx + resistance(this).rx,
-            az: lift(this).lz
+            az: lift(this).lz + weight(this)
         };
     },
     updateSpeedAfterDelay: function(delay) {
@@ -36,11 +36,13 @@ plane = {
             vx: delay * this.acceleration.ax / 1000 + this.speed.vx,
             vz: delay * this.acceleration.az / 1000 + this.speed.vz,
         };
+        if (this.speed.vz < 0 && this.position.z == 0) { this.speed.vz = 0; }
     },
     updatePositionAfterDelay: function(delay) {
         this.position = {
             z: delay * this.speed.vz / 1000 + this.position.z
         };
+        if (this.position.z <0) { this.position.z = 0; }
     },
 };
 
@@ -54,6 +56,10 @@ resistance = function(plane) {
 
 lift = function(plane) {
     return { lz: plane.speed.vx * plane.speed.vx / 10 };
+};
+
+weight = function(plane) {
+    return -20;
 };
 
 pilot = function(event, document) {

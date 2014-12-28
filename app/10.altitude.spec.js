@@ -17,4 +17,11 @@ describe('Altitude', function() {
         
         expect(plane.position.z).toEqual(20);
     });
+    
+    it('can not be below zero', function() {
+        plane.speed.vz = -10;
+        plane.updatePositionAfterDelay(1000);
+        
+        expect(plane.position.z).toEqual(0);
+    });
 });
