@@ -7,7 +7,7 @@ plane = {
     start: function() {
         this.engine = 0;
         this.position = { z:0 };
-        this.speed = { vx:0 };
+        this.speed = { vx:0, vz:0 };
         this.acceleration = { ax:0 };
     },
     increaseThrottle: function() {
@@ -23,12 +23,24 @@ plane = {
     updateAfterDelay: function(delay) {
         this.updateAccelerationAfterDelay(delay);
         this.updateSpeedAfterDelay(delay);
+        this.updatePositionAfterDelay(delay);
     }, 
     updateAccelerationAfterDelay: function(delay) {
-        this.acceleration = { ax:traction(this).tx + resistance(this).rx };
+        this.acceleration = { 
+            ax: traction(this).tx + resistance(this).rx,
+            az: lift(this).lz
+        };
     },
     updateSpeedAfterDelay: function(delay) {
-        this.speed = { vx:delay * this.acceleration.ax / 1000 + this.speed.vx };
+        this.speed = { 
+            vx: delay * this.acceleration.ax / 1000 + this.speed.vx,
+            vz: delay * this.acceleration.az / 1000 + this.speed.vz,
+        };
+    },
+    updatePositionAfterDelay: function(delay) {
+        this.position = {
+            z: delay * this.speed.vz / 1000 + this.position.z
+        };
     },
 };
 
@@ -38,6 +50,10 @@ traction = function(plane) {
 
 resistance = function(plane) {
     return { rx: - plane.speed.vx * plane.speed.vx / 10 };
+};
+
+lift = function(plane) {
+    return { lz: plane.speed.vx * plane.speed.vx / 10 };
 };
 
 pilot = function(event, document) {
@@ -54,6 +70,7 @@ pilot = function(event, document) {
 update = function(document, plane) {
     updateEngineDrawing(document, plane);
     updateSpeedDrawing(document, plane);
+    displayPlane(document, plane);
 };
 
 displayGround = function(document) {
@@ -62,7 +79,9 @@ displayGround = function(document) {
     groundElement.style.top = '500px';
 };
 
-displayPlane = function(document) {
+displayPlane = function(document, plane) {
+    if (document === undefined) { return; }
+    
     var groundElement = document.getElementById('ground');
     var planeElement = document.getElementById('plane');
     var groundElementTop = groundElement.style.top.substring(0, groundElement.style.top.indexOf('px'));

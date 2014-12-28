@@ -1,6 +1,6 @@
 require('./lib/world');
 
-describe('Resistance', function() {
+describe('Lift', function() {
 
     beforeEach(function() {
         plane.start();
@@ -9,14 +9,14 @@ describe('Resistance', function() {
     it('comes from speed', function() {
         plane.speed = { vx:2 };
         
-        expect(resistance(plane).rx).toEqual( -0.4 );
+        expect(lift(plane)).toEqual({ lz:0.4 });
     });
     
-    it('is added to engine traction', function() {
+    it('is a composante of the vertical acceleration', function() {
         plane.speed = { vx:2 };
-        plane.engine = 1;
+        plane.engine = 0;
         plane.updateAccelerationAfterDelay(1000);
         
-        expect(plane.acceleration.ax).toEqual(traction(plane).tx + resistance(plane).rx );
+        expect(plane.acceleration.az).toEqual(lift(plane).lz);
     });
 });

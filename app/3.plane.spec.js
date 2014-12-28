@@ -34,14 +34,14 @@ describe('Plane', function() {
 
         it('is displayed on the ground when altitude is zero', function() {
             plane.position.z = 0;
-            displayPlane(document);
+            displayPlane(document, plane);
         
             expect(planeDrawing.style.top).toEqual('250px');
         });
     
         it('is displayed above the ground when altitude is positive', function() {
             plane.position.z = 100;
-            displayPlane(document);
+            displayPlane(document, plane);
         
             expect(planeDrawing.style.top).toEqual('50px');        
         });

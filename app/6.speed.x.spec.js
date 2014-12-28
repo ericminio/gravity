@@ -1,6 +1,6 @@
 require('./lib/world');
 
-describe('Speed', function() {
+describe('Speed X', function() {
 
     beforeEach(function() {
         plane.start();
