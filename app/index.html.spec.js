@@ -26,5 +26,10 @@ describe('index.html', function() {
             expect(page('#engine').length).toEqual(1);
             expect(page('#engine').text()).toEqual('0');
         });
+        
+        it('contains the speed placeholder', function() {
+            expect(page('#speed').length).toEqual(1);
+            expect(page('#speed').text()).toEqual('0');
+        });
     });
 });

@@ -14,6 +14,10 @@ describe('Plane', function() {
         expect(plane.engine).toEqual(0);
     });
     
+    it('has a speed of 0 at the begining', function() {
+        expect(plane.speed.vx).toEqual(0);
+    });
+    
     describe('drawing', function() {
         
         var document;
@@ -74,6 +78,42 @@ describe('Plane', function() {
 
             plane.decreaseThrottle();            
             expect(engineElement.innerHTML).toEqual('0');
+        });
+    });
+    
+    describe('speed indicator', function() {
+    
+        beforeEach(function() {
+            plane.start();
+        });
+
+        it('is updated regularly', function() {
+            var document = require('jsdom').jsdom(
+                '<body><div id="speed">0</div></body>'
+            );
+            plane.isRenderedIn(document);
+            var speedElement = document.getElementById('speed');
+            plane.engine = 10;
+            plane.updateAfterDelay(1000);
+            
+            expect(speedElement.innerHTML).not.toEqual('0');
+        });
+    });
+    
+    describe('Dashboard', function() {
+            
+        beforeEach(function() {
+            plane.start();
+        });
+        
+        it('rounds speed', function() {
+            plane.speed = { vx: 12.39999 };
+            var document = require('jsdom').jsdom(
+                '<body><div id="speed">0</div></body>'
+            );
+            updateDasboard(document);
+            
+            expect(document.getElementById('speed').innerHTML).toEqual('12.40');
         });
     });
 });

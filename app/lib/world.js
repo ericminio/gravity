@@ -5,10 +5,14 @@ ground = {
 plane = {
     engine: 0,
     position: { z:0 },
+    speed: { vx:0 },
+    acceleration: { ax:0 },
     
     start: function() {
         this.engine = 0;
         this.position = { z:0 };
+        this.speed = { vx:0 };
+        this.acceleration = { ax:0 };
     },
     increaseThrottle: function() {
         if (this.engine < 2500) {
@@ -24,7 +28,12 @@ plane = {
     },
     isRenderedIn: function(document) {
         this.document = document
-    }
+    },
+    updateAfterDelay: function(delay) {
+        plane.acceleration = { ax:this.engine };
+        plane.speed = { vx:delay * plane.acceleration.ax / 1000 + plane.speed.vx };
+        updateDasboard(this.document);
+    },    
 };
 
 pilot = function(event) {
@@ -55,4 +64,11 @@ updateEngineDrawing = function(document) {
     
     var engineElement = document.getElementById('engine');    
     engineElement.innerHTML = plane.engine;
+};
+
+updateDasboard = function(document) {
+    if (document === undefined) { return; }
+    
+    var speedElement = document.getElementById('speed');    
+    speedElement.innerHTML = plane.speed.vx.toFixed(2);
 };

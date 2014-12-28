@@ -10,8 +10,12 @@
     <section>
         <table>
             <tr>
-                <td>Engine(t/f): </td>
+                <td>Engine(t/f) </td>
                 <td id="engine">0</td>
+            </tr>
+            <tr>
+                <td>Speed </td>
+                <td id="speed">0</td>
             </tr>
         </table>
     </section>
@@ -23,6 +27,15 @@
         displayGround(document);
         displayPlane(document);
         plane.isRenderedIn(document);
+        
+        delay = 100;
+        
+        tic = function(dt, document) {
+            plane.updateAfterDelay(dt);
+            setTimeout(function() { tic(delay); }, delay);
+        };
+
+        setTimeout(function() { tic(delay); }, delay);
     };
     window.onkeydown = function(event) {
         pilot(event);
