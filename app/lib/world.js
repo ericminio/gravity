@@ -25,11 +25,15 @@ plane = {
         this.updateSpeedAfterDelay(delay);
     }, 
     updateAccelerationAfterDelay: function(delay) {
-        this.acceleration = { ax:this.engine + resistance(this).rx };
+        this.acceleration = { ax:traction(this).tx + resistance(this).rx };
     },
     updateSpeedAfterDelay: function(delay) {
         this.speed = { vx:delay * this.acceleration.ax / 1000 + this.speed.vx };
     },
+};
+
+traction = function(plane) {
+    return { tx: plane.engine };
 };
 
 resistance = function(plane) {
