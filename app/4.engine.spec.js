@@ -46,17 +46,18 @@ describe('Engine', function() {
             expect(page('#engine').text()).toEqual('0');
         });
 
-        it('is updated with throttle update', function() {
+        it('is updated along engine value', function() {
             var document = require('jsdom').jsdom(
                 '<body><div id="engine">0</div></body>'
             );
-            plane.isRenderedIn(document);
             var engineElement = document.getElementById('engine');
 
-            plane.increaseThrottle();            
+            plane.increaseThrottle();  
+            updateEngineDrawing(document, plane);          
             expect(engineElement.innerHTML).toEqual('1');
 
             plane.decreaseThrottle();            
+            updateEngineDrawing(document, plane);          
             expect(engineElement.innerHTML).toEqual('0');
         });
     });

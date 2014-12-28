@@ -4,7 +4,6 @@ describe('Acceleration', function() {
 
     beforeEach(function() {
         plane.start();
-        plane.document = undefined;
     });
     
     it('is zero at the begining', function() {

@@ -24,21 +24,22 @@
     <section id="ground"></section>
     <script>
     window.onload = function() {
+        plane.start();        
         displayGround(document);
         displayPlane(document);
-        plane.isRenderedIn(document);
         
         delay = 100;
         
         tic = function(dt, document) {
             plane.updateAfterDelay(dt);
-            setTimeout(function() { tic(delay); }, delay);
+            update(document, plane);
+            setTimeout(function() { tic(delay, document); }, delay);
         };
 
-        setTimeout(function() { tic(delay); }, delay);
+        setTimeout(function() { tic(delay, document); }, delay);
     };
     window.onkeydown = function(event) {
-        pilot(event);
+        pilot(event, document);
     };
     </script>
 </body>

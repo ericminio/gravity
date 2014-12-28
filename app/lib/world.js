@@ -3,10 +3,6 @@ ground = {
 };
 
 plane = {
-    engine: 0,
-    position: { z:0 },
-    speed: { vx:0 },
-    acceleration: { ax:0 },
     
     start: function() {
         this.engine = 0;
@@ -17,32 +13,33 @@ plane = {
     increaseThrottle: function() {
         if (this.engine < 2500) {
             this.engine ++;
-            updateEngineDrawing(this.document);
         }
     },
     decreaseThrottle: function() {
         if (this.engine > 0) {
             this.engine --;
-            updateEngineDrawing(this.document);
         }
-    },
-    isRenderedIn: function(document) {
-        this.document = document
     },
     updateAfterDelay: function(delay) {
         plane.acceleration = { ax:this.engine };
         plane.speed = { vx:delay * plane.acceleration.ax / 1000 + plane.speed.vx };
-        updateDasboard(this.document);
     },    
 };
 
-pilot = function(event) {
+pilot = function(event, document) {
     if (event.keyCode == 84) {
         plane.increaseThrottle();
+        update(document, plane);
     }
     if (event.keyCode == 70) {
         plane.decreaseThrottle();
+        update(document, plane);
     }
+};
+
+update = function(document, plane) {
+    updateEngineDrawing(document, plane);
+    updateSpeedDrawing(document, plane);
 };
 
 displayGround = function(document) {
@@ -66,7 +63,7 @@ updateEngineDrawing = function(document) {
     engineElement.innerHTML = plane.engine;
 };
 
-updateDasboard = function(document) {
+updateSpeedDrawing = function(document, plane) {
     if (document === undefined) { return; }
     
     var speedElement = document.getElementById('speed');    

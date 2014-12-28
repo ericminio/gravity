@@ -4,7 +4,6 @@ describe('Speed', function() {
 
     beforeEach(function() {
         plane.start();
-        plane.document = undefined;
     });
     
     it('is zero at the begining', function() {
@@ -36,14 +35,13 @@ describe('Speed', function() {
             expect(page('#speed').text()).toEqual('0');
         });
 
-        it('is updated regularly', function() {
+        it('is updated along speed value of the plane', function() {
             var document = require('jsdom').jsdom(
                 '<body><div id="speed">0</div></body>'
             );
-            plane.isRenderedIn(document);
             var speedElement = document.getElementById('speed');
-            plane.engine = 10;
-            plane.updateAfterDelay(1000);
+            plane.speed = { vx: 10 };
+            updateSpeedDrawing(document, plane);
             
             expect(speedElement.innerHTML).not.toEqual('0');
         });
@@ -53,7 +51,7 @@ describe('Speed', function() {
             var document = require('jsdom').jsdom(
                 '<body><div id="speed">0</div></body>'
             );
-            updateDasboard(document);
+            updateSpeedDrawing(document, plane);
             
             expect(document.getElementById('speed').innerHTML).toEqual('12.40');
         });
