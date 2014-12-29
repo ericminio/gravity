@@ -23,5 +23,14 @@ describe('The ground', function() {
         
             expect(groundElement.style.top).toEqual('500px');
         });    
+
+        it('is displayed with a height of 5px', function() {
+            var jsdom = require('jsdom').jsdom;
+            var document = jsdom('<body><div id="ground"></div></body>');
+            var groundElement = document.getElementById('ground');
+            displayGround(document);
+        
+            expect(groundElement.style.height).toEqual('5px');
+        });    
     });
 });

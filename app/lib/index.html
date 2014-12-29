@@ -7,7 +7,9 @@
     <link  href="/lib/world.css" rel="stylesheet" type="text/css">
     <script src="/lib/world.js"></script>
 <body>
-    <section>
+    <section id="clouds"></section>
+    
+    <section id="dashboard">
         <table>
             <tr>
                 <td>Engine(t/f) </td>
@@ -31,6 +33,7 @@
         displayGround(document);
         displayPlane(document, plane);
         displayTree(document, plane);
+        displayDashboard(document);
         
         delay = 100;
         

@@ -90,6 +90,7 @@ displayGround = function(document) {
     var groundElement = document.getElementById('ground');
     
     groundElement.style.top = '500px';
+    groundElement.style.height = '5px';
 };
 
 displayTree = function(document, plane) {
@@ -111,6 +112,16 @@ displayPlane = function(document, plane) {
     var groundElementTop = groundElement.style.top.substring(0, groundElement.style.top.indexOf('px'));
     
     planeElement.style.top = groundElementTop - 2*plane.position.z - planeElement.height + 'px';
+};
+
+displayDashboard = function(document) {
+    var dashboardElement = document.getElementById('dashboard');
+    var groundElement = document.getElementById('ground');
+    var groundElementTop = groundElement.style.top.substring(0, groundElement.style.top.indexOf('px'));
+    var groundElementHeight = groundElement.style.height.substring(0, groundElement.style.height.indexOf('px'));
+    var value = 1 + parseInt(groundElementTop) + parseInt(groundElementHeight) + 'px';
+    
+    dashboardElement.style.top = value;
 };
 
 updateEngineDrawing = function(document) {
